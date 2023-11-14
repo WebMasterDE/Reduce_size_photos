@@ -1,5 +1,3 @@
-#prima di procedere con l'avvio del programma, assicurarsi che  imagemagick (in versione AppImage) sia presente nella stessa cartella e allo stesso livello di questo programma python
-
 import os
 import glob
 import sys
@@ -9,19 +7,18 @@ from PIL import Image
 def compress_images(folder_path):
     for root, dirs, files in os.walk(folder_path):
         for file in files:
-            # Per Linux e Mac aggiungere (or file.endswith(".JPG") or file.endswith('.JPEG') or file.endswith(".PNG")) nella seguente condizione if
-            if file.endswith(".jpg") or file.endswith('.jpeg') or file.endswith(".png") :
-                print(os.listdir(root).index(file), " di ", os.listdir(root).__len__(), " -> ", file)
+            if file.endswith(".jpg") or file.endswith('.jpeg') or file.endswith(".png") or file.endswith(".JPG") or file.endswith('.JPEG') or file.endswith(".PNG") :
                 image_path = os.path.join(root, file)
                 img = Image.open(image_path)
                 if img.width > 1920 or img.height > 1080:
+                    print(os.listdir(root).index(file), " di ", os.listdir(root).__len__(), " -> ", file)
                     img.thumbnail((1920, 1080))
-                    #img.save(image_path, quality=70)
+                    img.save(image_path, quality=70)
                     # Per Linux e Mac aggiungere (or file.endswith('.JPG') or file.endswith('.JPEG')) nella seguente condizione if
-                    if file.endswith('.jpg') or file.endswith('.jpeg'):
-                        img.save(os.path.join(root, 'compressed_' + file), 'JPEG', quality=70)
-                    else:
-                        img.save(os.path.join(root, 'compressed_' + file), 'PNG', quality=70)
+                    # if file.endswith('.jpg') or file.endswith('.jpeg'):
+                    #     img.save(os.path.join(root, 'compressed_' + file), 'JPEG', quality=70)
+                    # else:
+                    #     img.save(os.path.join(root, 'compressed_' + file), 'PNG', quality=70)
 
 # Funzione che conta il numero di immagini presenti nella cartella da analizzare
 def count_image_files(directory):
