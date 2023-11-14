@@ -5,18 +5,20 @@ import glob
 from PIL import Image
 
 #funzione che comprime le immagini con una risoluzione superiore a 1920*1080 ad una risoluzione di 1920*1080
-def compress_images(path):
-    for item in os.listdir(path):
-
-        if item.endswith('.jpg') or item.endswith('.jpeg') or item.endswith('.png'):
-            print(os.listdir(path).index(item), " di ", os.listdir(path).__len__(), " -> ", item)
-            im = Image.open(os.path.join(path, item))
-            if im.size[0] > 1920 or im.size[1] > 1080:
-                im.thumbnail((1920, 1080))
-                if item.endswith('.jpg') or item.endswith('.jpeg'):
-                    im.save(os.path.join(path, 'compressed_' + item), 'JPEG', quality=70)
-                else:
-                    im.save(os.path.join(path, 'compressed_' + item), 'PNG', quality=70)
+def compress_images(folder_path):
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.endswith(".jpg") or file.endswith('.jpeg') or file.endswith(".png"):
+                print(os.listdir(root).index(file), " di ", os.listdir(root).__len__(), " -> ", file)
+                image_path = os.path.join(root, file)
+                img = Image.open(image_path)
+                if img.width > 1920 or img.height > 1080:
+                    img.thumbnail((1920, 1080))
+                    #img.save(image_path, quality=70)
+                    if file.endswith('.jpg') or file.endswith('.jpeg'):
+                        img.save(os.path.join(root, 'compressed_' + file), 'JPEG', quality=70)
+                    else:
+                        img.save(os.path.join(root, 'compressed_' + file), 'PNG', quality=70)
 
 # Funzione che conta il numero di immagini presenti nella cartella da analizzare
 def count_image_files(directory):
