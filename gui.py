@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from tkinterdnd2 import DND_FILES, TkinterDnD
+from compress_photos import Compress_photos
+
 
 
 class FolderPathApp:
@@ -69,11 +71,50 @@ class FolderPathApp:
         else:
             messagebox.showwarning("Warning", "Please select a folder first.")
 
+    def create_choice_window(self, number_images):
+        # Function to handle the button click event
+        def handle_choice(choice):
+            #messagebox.showinfo("Choice", f"You chose: {choice}")
+            res=choice
+            root.destroy()
+            return res
+
+        # Create the main window
+        root = tk.Tk()
+        root.title("Number of images")
+
+        # Create a label inside the frame
+        label = tk.Label(root, text=f"Number of image files:{number_images}")
+        label.pack(side=tk.TOP, padx=10, pady=10)
+
+        # Set window size
+        root.geometry("300x200")
+
+        # Create and place the first button
+        button1 = tk.Button(root, text="Proceed", command=lambda: handle_choice("YES"))
+        button1.pack(pady=20)
+
+        # Create and place the second button
+        button2 = tk.Button(root, text="STOP", command=lambda: handle_choice("NO"))
+        button2.pack(pady=20)
+
+        # Start the main event loop
+        root.mainloop()
+        return res
+
     def run_program(self, folder_path):
         # Example program logic
         print(f"Running program with folder: {folder_path}")
-        # Add your program execution code here
 
+        compress_photos=Compress_photos()
+
+        # image count
+        image_file_count = compress_photos.count_image_files(folder_path)  # richiamo la funzione che mi conta quante immagini sono presenti nella directory_path
+        choice = self.create_choice_window(image_file_count)
+        if choice == "YES":
+            print("yesssssssssssss")
+            # call the function to reduce size > fullhd to fullhd
+            compress_photos.compress_images(folder_path)
 
 if __name__ == "__main__":
     if os.name == 'posix':
