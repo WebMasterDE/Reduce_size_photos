@@ -71,13 +71,18 @@ class FolderPathApp:
         else:
             messagebox.showwarning("Warning", "Please select a folder first.")
 
-    def create_choice_window(self, number_images):
+    def create_choice_window(self, number_images, folder_path):
         # Function to handle the button click event
         def handle_choice(choice):
             #messagebox.showinfo("Choice", f"You chose: {choice}")
-            res=choice
+            # When Proceed is clicked
+            if choice == "YES":
+
+                # call the function to reduce size > fullhd to fullhd
+                compress_photos = Compress_photos()
+                compress_photos.compress_images(folder_path)
+
             root.destroy()
-            return res
 
         # Create the main window
         root = tk.Tk()
@@ -110,11 +115,7 @@ class FolderPathApp:
 
         # image count
         image_file_count = compress_photos.count_image_files(folder_path)  # richiamo la funzione che mi conta quante immagini sono presenti nella directory_path
-        choice = self.create_choice_window(image_file_count)
-        if choice == "YES":
-            print("yesssssssssssss")
-            # call the function to reduce size > fullhd to fullhd
-            compress_photos.compress_images(folder_path)
+        choice = self.create_choice_window(image_file_count, folder_path)
 
 if __name__ == "__main__":
     if os.name == 'posix':
