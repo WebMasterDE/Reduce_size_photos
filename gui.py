@@ -81,6 +81,7 @@ class FolderPathApp:
                 # call the function to reduce size > fullhd to fullhd
                 compress_photos = Compress_photos()
                 compress_photos.compress_images(folder_path)
+                messagebox.showinfo("Success", "Program executed successfully.")
 
             root.destroy()
 

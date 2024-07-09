@@ -6,7 +6,6 @@ from PIL import Image
 #funzione che comprime le immagini con una risoluzione superiore a 1920*1080 ad una risoluzione di 1920*1080
 class Compress_photos:
     def compress_images(self, folder_path):
-        print("ciao")
         for root, dirs, files in os.walk(folder_path):
             for file in files:
                 if file.endswith(".jpg") or file.endswith('.jpeg') or file.endswith(".png") or file.endswith(".JPG") or file.endswith('.JPEG') or file.endswith(".PNG") :
