@@ -10,7 +10,7 @@ class FolderPathApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Folder Path Importer")
-        self.root.geometry("400x200")
+        self.root.geometry("400x270")
 
         # Style configuration
         self.style = ttk.Style()
@@ -26,6 +26,9 @@ class FolderPathApp:
 
         self.frame = ttk.Frame(root, padding=10)
         self.frame.pack(fill=tk.BOTH, expand=True)
+
+        self.label = ttk.Label(self.frame, text="Select the folder that contains the photo \n without entering the folder")
+        self.label.pack(pady=10)
 
         self.label = ttk.Label(self.frame, text="Select a folder:")
         self.label.pack(pady=10)
