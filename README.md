@@ -7,3 +7,5 @@ Installation requirements:
 
 Run program:
 - execute compress_program.bat
+
+N.B. If a blue screen appears warning you that the program does not have a reliable author, click on further information and then run anyway
